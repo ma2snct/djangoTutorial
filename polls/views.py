@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.contrib.auth import authenticate, logout
 
 from .models import Choice, Question
 
@@ -53,3 +54,21 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+def login(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        return render(request, 'polls/login.html', {
+            'result': "success",
+        })
+    else:
+        return render(request, 'polls/login.html', {
+            'result': "error",
+        })
+
+def logout_view(request):
+    logout(request)
+
+    return HttpResponseRedirect(reverse('polls:index', args=()))
