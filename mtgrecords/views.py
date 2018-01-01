@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.http import HttpResponse
+from twitter import *
+from . import api
 
 from .models import Event, Match
 
@@ -34,6 +36,12 @@ class DetailView(generic.DetailView):
 
 class TweetView(generic.TemplateView):
     template_name = "mtgrecords/tweet.html"
+
+    t = Twitter(
+        auth=OAuth(api.token, api.token_secret, api.consumer_key, api.consumer_secret))
+
+    # Get your "home" timeline
+    print(t.statuses.home_timeline())
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
