@@ -2,6 +2,10 @@ from django.urls import path
 
 from . import views
 
+from django.conf.urls import url, include
+from django.conf import settings
+from .views import ApiEndpoint
+
 app_name = 'polls'
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),

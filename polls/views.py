@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib.auth import authenticate, logout
+from oauth2_provider.views.generic import ProtectedResourceView
+from django.http import HttpResponse
 
 from .models import Choice, Question
 
@@ -72,3 +74,7 @@ def logout_view(request):
     logout(request)
 
     return HttpResponseRedirect(reverse('polls:index', args=()))
+
+class ApiEndpoint(ProtectedResourceView):
+    def get(self, request, *args, **kwargs):
+        return HttpResponse('Hello, OAuth2!')

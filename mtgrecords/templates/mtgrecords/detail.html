@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+<h1>{{ event.date }} {{ event.event_type }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>
+          #
+        </th>
+        <th>
+          対戦相手
+        </th>
+        <th>
+          G1
+        </th>
+        <th>
+          G2
+        </th>
+        <th>
+          G3
+        </th>
+      </thead>
+    {% for match in event.match_set.all %}
+      <tr>
+        <td>
+          <p>{{ forloop.counter }}R</p>
+        </td>
+        <td>
+          <p>{{ match.opp_deck }}</p>
+        </td>
+        <td>
+          {% if match.game1 == 1 %}
+            <p>o</p>
+          {% else %}
+            <p>x</p>
+          {% endif %}
+        </td>
+        <td>
+          {% if match.game2 == 1 %}
+            <p>o</p>
+          {% else %}
+            <p>x</p>
+          {% endif %}
+        </td>
+        <td>
+          {% if match.game3 == 1 %}
+            <p>o</p>
+          {% else %}
+            <p>x</p>
+          {% endif %}
+        </td>
+
+      </tr>
+    {% endfor %}
+  </table>
+</div>

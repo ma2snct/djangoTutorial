@@ -1,0 +1,14 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'mtgrecords/style.css' %}" />
+
+{% if latest_event_list %}
+    <ul>
+    {% for question in latest_event_list %}
+        <li><a href="{% url 'mtgrecords:detail' event.id %}">{{ event.event_type }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No MTG event are available.</p>
+{% endif %}
+</
